@@ -18,6 +18,8 @@ FROM base as builder
 
 COPY requirements.txt .
 
+RUN apt update && apt install -y gcc
+
 RUN pip install --prefix="/install" -r requirements.txt
 
 FROM base
