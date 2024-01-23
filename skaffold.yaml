@@ -42,16 +42,26 @@ build:
       dockerfile: Dockerfile
   - image: frontend
     context: src/frontend
+    sync:
+      manual:
+      - src: 'src/frontend/*'
+        dest: .
   - image: adservice
     context: src/adservice
   tagPolicy:
     gitCommit: {}
   local:
-    useBuildkit: false
+    useBuildkit: true
 manifests:
   kustomize:
     paths:
     - kubernetes-manifests
+portForward:
+  - resourceType: Service
+    resourceName: frontend-external
+    namespace: default
+    port: 80
+    localPort: 8000
 deploy:
   kubectl: {}
 # "gcb" profile allows building and pushing the images
