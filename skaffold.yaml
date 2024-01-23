@@ -52,6 +52,7 @@ build:
     gitCommit: {}
   local:
     useBuildkit: true
+    concurrency: 0
 manifests:
   kustomize:
     paths:
